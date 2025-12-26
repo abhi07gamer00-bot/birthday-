@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Zarus!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Poppins",sans-serif;
+    background: radial-gradient(circle at top,
+        #ff9a9e 0%,
+        #fecfef 35%,
+        #a1c4fd 80%,
+        #a1c4fd 100%
+    );
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+/* FULL PAGES */
+.fullpage{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.88);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    cursor:pointer;
+    z-index:9999;
+}
+
+.fullpage h1{
+    font-family:"Pacifico",cursive;
+    font-size:4rem;
+    color:#ff73b9;
+}
+
+.fullpage p{
+    color:#fff;
+    margin-top:10px;
+}
+
+/* MAIN */
+#mainContent{
+    display:none;
+    width:100%;
+    padding:20px;
+}
+
+.card{
+    max-width:430px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+/* VIDEO FULLSCREEN FIX */
+.video-wrapper{
+    position:relative;
+    width:100%;
+    padding-top:56.25%; /* 16:9 */
+    border-radius:16px;
+    overflow:hidden;
+    background:#000;
+}
+
+.video-wrapper iframe{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.btn{
+    margin-top:12px;
+    padding:10px 18px;
+    border-radius:25px;
+    border:none;
+    background:linear-gradient(135deg,#ff9a9e,#ff4b7d);
+    color:white;
+    cursor:pointer;
+}
+
+audio{display:none;}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="HBD.mp3"></audio>
+<audio id="secondMusic" src="happy_birthday.mp3"></audio>
+
+<!-- PAGE 1 -->
+<div id="page1" class="fullpage" onclick="goToPage2()">
+    <h1>HAPPY BIRTHDAY<br>ZARUS 🎉</h1>
+    <p>(Click anywhere)</p>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="fullpage" style="display:none" onclick="goToMain()">
+    <h1>Wishing You<br>The Best Day Ever 🎂</h1>
+    <p>(Click to watch)</p>
+</div>
+
+<!-- MAIN -->
+<div id="mainContent">
+    <div class="card">
+        <h2>Happy Birthday <span style="color:#ff4b7d;">Zarus 🎁</span></h2>
+
+        <!-- FULLSCREEN ENABLED DRIVE VIDEO -->
+        <div class="video-wrapper">
+            <iframe
+              src="https://drive.google.com/file/d/1v8LycbdbULPsEBGcjpBGIOcShcKw8qaX/preview"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
+        </div>
+
+        <p style="margin-top:10px;color:#666;">
+            From,<br><strong>Abhi</strong>
+        </p>
+    </div>
+</div>
+
+<script>
+function playOnce(a){
+    if(!a) return;
+    a.currentTime=0;
+    a.play().catch(()=>{});
+}
+
+function stopAudio(a){
+    if(!a) return;
+    a.pause();
+    a.currentTime=0;
+}
+
+function goToPage2(){
+    playOnce(bgMusic);
+    page1.style.display="none";
+    page2.style.display="flex";
+}
+
+function goToMain(){
+    stopAudio(bgMusic);
+    playOnce(secondMusic);
+    page2.style.display="none";
+    mainContent.style.display="block";
+}
+</script>
+
+</body>
+</html>
