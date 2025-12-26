@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Zarus!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Poppins",sans-serif;
+    background: radial-gradient(circle at top,
+        #ff9a9e 0%,
+        #fecfef 35%,
+        #a1c4fd 80%,
+        #a1c4fd 100%
+    );
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+/* FULL PAGE SCREENS */
+.fullpage{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.88);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    cursor:pointer;
+    z-index:9999;
+}
+
+.fullpage h1{
+    font-family:"Pacifico",cursive;
+    font-size:4rem;
+    color:#ff73b9;
+    text-shadow:0 0 25px rgba(255,130,160,0.9);
+}
+
+.fullpage p{
+    color:#fff;
+    margin-top:10px;
+}
+
+/* POP IN ANIMATION */
+.pop-in{
+    animation:popIn 0.8s ease-out;
+}
+
+@keyframes popIn{
+    from{transform:scale(0.9);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+/* MAIN CONTENT */
+#mainContent{
+    display:none;
+    width:100%;
+    padding:20px;
+}
+
+.card{
+    max-width:430px;
+    margin:auto;
+    background:rgba(255,255,255,0.95);
+    padding:22px;
+    border-radius:22px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    text-align:center;
+    animation:floatUp 0.8s ease-out;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(25px);opacity:0;}
+    to{transform:translateY(0);opacity:1;}
+}
+
+/* GRADIENT TEXT */
+.gradient-text{
+    background:linear-gradient(45deg,#ff4b7d,#ff9a9e,#f6d365);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 10px rgba(255,75,125,0.4);
+}
+
+.video-wrapper{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+    border-radius:18px;
+    overflow:hidden;
+    background:#000;
+    margin-top:12px;
+}
+
+.video-wrapper iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+audio{display:none;}
+
+/* CONFETTI */
+#confetti-container{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:9000;
+    display:none;
+}
+
+.confetti-piece{
+    position:absolute;
+    width:8px;
+    height:14px;
+    opacity:0.9;
+    border-radius:2px;
+    animation:confetti-fall 2s linear forwards;
+}
+
+@keyframes confetti-fall{
+    from{transform:translateY(-10vh) rotate(0deg);}
+    to{transform:translateY(110vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="HBD.mp3"></audio>
+<audio id="secondMusic" src="happy_birthday.mp3"></audio>
+
+<div id="confetti-container"></div>
+
+<!-- PAGE 1 -->
+<div id="page1" class="fullpage" onclick="goToPage2()">
+    <h1 class="pop-in">HAPPY BIRTHDAY<br>ZARUS 🎉</h1>
+    <p>(Click anywhere)</p>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="fullpage" style="display:none" onclick="goToMain()">
+    <h1 class="pop-in">Wishing You<br>The Best Day Ever 🎂</h1>
+    <p>(Click to watch your surprise)</p>
+</div>
+
+<!-- MAIN PAGE -->
+<div id="mainContent">
+    <div class="card">
+        <h2>
+            Happy Birthday
+            <span class="gradient-text">Zarus 🎁</span>
+        </h2>
+
+        <div class="video-wrapper">
+            <iframe
+              src="https://drive.google.com/file/d/1v8LycbdbULPsEBGcjpBGIOcShcKw8qaX/preview"
+              allow="autoplay; fullscreen"
+              allowfullscreen>
+            </iframe>
+        </div>
+
+        <p style="margin-top:14px;color:#777;font-size:0.9rem;">
+            Made with ❤️ by<br><strong>Abhi</strong>
+        </p>
+    </div>
+</div>
+
+<script>
+function playOnce(a){
+    if(!a) return;
+    a.currentTime=0;
+    a.play().catch(()=>{});
+}
+
+function stopAudio(a){
+    if(!a) return;
+    a.pause();
+    a.currentTime=0;
+}
+
+function launchConfetti(){
+    const container=document.getElementById("confetti-container");
+    container.innerHTML="";
+    container.style.display="block";
+
+    const colors=["#ff9a9e","#ff6f91","#f6d365","#9b5de5","#4cc9f0","#caffbf"];
+
+    for(let i=0;i<180;i++){
+        const c=document.createElement("div");
+        c.className="confetti-piece";
+        c.style.left=Math.random()*100+"vw";
+        c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+        c.style.animationDelay=Math.random()*0.5+"s";
+        container.appendChild(c);
+    }
+
+    setTimeout(()=>{
+        container.style.display="none";
+        container.innerHTML="";
+    },2000);
+}
+
+function goToPage2(){
+    launchConfetti();
+    playOnce(bgMusic);
+    page1.style.display="none";
+    page2.style.display="flex";
+}
+
+function goToMain(){
+    launchConfetti();
+    stopAudio(bgMusic);
+    playOnce(secondMusic);
+    page2.style.display="none";
+    mainContent.style.display="block";
+}
+</script>
+
+</body>
+</html>
